@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>東京六日五夜親子自由行（116/05/09 - 05/14）</title>
+  <style>
+    :root {
+      --primary-color: #2b6cb0;
+      --primary-light: #ebf8ff;
+      --accent-color: #319795;
+      --bg-color: #f7fafc;
+      --card-bg: #ffffff;
+      --text-main: #2d3748;
+      --text-muted: #718096;
+      --border-color: #e2e8f0;
+      --tag-bg: #edf2f7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      font-size: 1.1rem;
+      padding-bottom: 40px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #2b6cb0, #319795);
+      color: white;
+      text-align: center;
+      padding: 24px 16px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    /* 導覽分頁按鈕 */
+    nav.tabs {
+      display: flex;
+      background: var(--card-bg);
+      border-bottom: 2px solid var(--border-color);
+      overflow-x: auto;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .tab-btn {
+      flex: 1;
+      min-width: 90px;
+      padding: 14px 10px;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: var(--text-muted);
+      cursor: pointer;
+      text-align: center;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      color: var(--primary-color);
+      border-bottom-color: var(--primary-color);
+      background-color: var(--primary-light);
+    }
+
+    /* 主要內容區 */
+    main {
+      max-width: 800px;
+      margin: 16px auto;
+      padding: 0 12px;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* 卡片式樣式 */
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      border: 1px solid var(--border-color);
+    }
+
+    .card h2 {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      margin-bottom: 12px;
+      border-bottom: 2px solid var(--primary-light);
+      padding-bottom: 6px;
+    }
+
+    .card h3 {
+      font-size: 1.25rem;
+      color: var(--accent-color);
+      margin: 16px 0 8px 0;
+    }
+
+    /* 行程時間軸 */
+    .timeline {
+      list-style: none;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: var(--border-color);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 16px;
+      padding-left: 12px;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -18px;
+      top: 8px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--primary-color);
+    }
+
+    .time-badge {
+      display: inline-block;
+      background: var(--tag-bg);
+      color: var(--primary-color);
+      font-weight: bold;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    /* 表格樣式 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 1.05rem;
+    }
+
+    th, td {
+      padding: 10px 12px;
+      border: 1px solid var(--border-color);
+      text-align: left;
+    }
+
+    th {
+      background-color: var(--tag-bg);
+      color: var(--text-main);
+      white-space: nowrap;
+    }
+
+    /* 檢查清單 */
+    .checklist {
+      list-style: none;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 1.1rem;
+    }
+
+    .checklist-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-right: 12px;
+      cursor: pointer;
+    }
+
+    .highlight-box {
+      background-color: var(--primary-light);
+      border-left: 4px solid var(--primary-color);
+      padding: 12px;
+      border-radius: 4px;
+      margin: 10px 0;
+      font-size: 1.05rem;
+    }
+
+    @media (max-width: 600px) {
+      body { font-size: 1.05rem; }
+      header h1 { font-size: 1.5rem; }
+      .card h2 { font-size: 1.35rem; }
+      .tab-btn { padding: 12px 8px; font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>東京六日五夜親子自由行</h1>
+    <p>116年05月09日(六) – 05月14日(四) ｜ 5大1小</p>
+  </header>
+
+  <!-- 頁籤導覽 -->
+  <nav class="tabs">
+    <button class="tab-btn" onclick="switchTab('overview')">行程總覽</button>
+    <button class="tab-btn" onclick="switchTab('day1')">D1 5/9</button>
+    <button class="tab-btn" onclick="switchTab('day2')">D2 5/10</button>
+    <button class="tab-btn" onclick="switchTab('day3')">D3 5/11</button>
+    <button class="tab-btn" onclick="switchTab('day4')">D4 5/12</button>
+    <button class="tab-btn" onclick="switchTab('day5')">D5 5/13</button>
+    <button class="tab-btn" onclick="switchTab('day6')">D6 5/14</button>
+    <button class="tab-btn" onclick="switchTab('checklist')">準備清單</button>
+  </nav>
+
+  <main>
+    <!-- 總覽分頁 -->
+    <div id="tab-overview" class="tab-content">
+      <div class="card">
+        <h2>✈️ 航班資訊（中華航空）</h2>
+        <table>
+          <tr>
+            <th>航段</th>
+            <th>班機/時間</th>
+            <th>航線</th>
+          </tr>
+          <tr>
+            <td><b>去程 5/09</b></td>
+            <td>CI104<br>14:35 - 19:00</td>
+            <td>桃園 (TPE) $\rightarrow$ 成田 (NRT)</td>
+          </tr>
+          <tr>
+            <td><b>回程 5/14</b></td>
+            <td>CI105<br>14:30 - 17:15</td>
+            <td>成田 (NRT) $\rightarrow$ 桃園 (TPE)</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2>🏨 住宿安排</h2>
+        <ul>
+          <li><b>前三晚 (5/09 - 5/12)</b>：東京灣喜來登大飯店（Sheraton Grande Tokyo Bay Hotel）</li>
+          <li><b>後兩晚 (5/12 - 5/14)</b>：新宿京王廣場大飯店（Keio Plaza Hotel Tokyo）</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>🗺️ 6天行程快覽</h2>
+        <ul>
+          <li><b>Day 1 (5/09)</b>：台灣出發 $\rightarrow$ 成田機場 $\rightarrow$ 直達利木津巴士 $\rightarrow$ 東京灣喜來登</li>
+          <li><b>Day 2 (5/10)</b>：東京迪士尼樂園 (Land) 暢玩一日</li>
+          <li><b>Day 3 (5/11)</b>：東京迪士尼海洋 (Sea) 暢玩一日</li>
+          <li><b>Day 4 (5/12)</b>：包車前往新宿京王廣場飯店 $\rightarrow$ 周邊親子公園/博物館</li>
+          <li><b>Day 5 (5/13)</b>：KKday 富士山野生動物園巴士一日遊</li>
+          <li><b>Day 6 (5/14)</b>：飯店搭乘直達利木津巴士 $\rightarrow$ 成田機場 $\rightarrow$ 返抵台灣</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Day 1 -->
+    <div id="tab-day1" class="tab-content">
+      <div class="card">
+        <h2>Day 1：5月9日（六）抵達東京 & 入住喜來登</h2>
+        <ul class="timeline">
+          <li class="timeline-item">
+            <span class="time-badge">14:35 - 19:00</span>
+            <p><b>華航 CI104 班機</b>：桃園機場飛往成田機場。</p>
+          </li>
+          <li class="timeline-item">
+            <span class="time-badge">19:00 - 20:00</span>
+            <p><b>辦理入境與提領行李</b>：協助長輩與小孩推車與提領行李。</p>
+          </li>
+          <li class="timeline-item">
+            <span class="time-badge">20:10 / 21:05</span>
+            <p><b>搭乘利木津巴士直達飯店</b>：</p>
+            <p>成田機場二航廈 1F 12號站牌搭乘，直達東京灣喜來登大飯店。</p>
+          </li>
+          <li class="timeline-item">
+            <span class="time-badge">21:30~</span>
+            <p><b>辦理入住與採買宵夜</b>：於飯店內便利商店購買補給物資早點休息。</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Day 2 -->
+    <div id="tab-day2" class="tab-content">
+      <div class="card">
+        <h2>Day 2：5月10日（日）東京迪士尼樂園 (Land)</h2>
+        <ul class="timeline">
+          <li class="timeline-item">
+            <span class="time-badge">07:00 - 08:00</span>
+            <p><b>飯店享用早餐</b>。</p>
+          </li>
+          <li class="timeline-item">
+            <span class="time-badge">08:30 - 09:00</span>
+            <p><b>交通接駁</b>：從喜來登海濱站搭乘迪士尼單軌電車至迪士尼樂園站。</p>
+          </li>
+          <li class="timeline-item">
+            <span class="time-badge">09:00 - 18:00</span>
+            <p><b>迪士尼樂園歡樂暢玩</b>：適合幼童設施（小小世界、小熊維尼獵蜜記、白天花車遊行）。</p>
+          </li>
+          <li class="timeline-item">
+            <span class="time-badge">18:00</span>
+            <p><b>返回飯店休息</b>：避免小孩子與長輩過度疲累，返回喜來登飯店用餐休息。</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Day 3 -->
+    <div id="tab-day3" class="tab-content">
+      <div class="card">
+        <h2>Day 3：5月11日（一）東京迪士尼海洋 (Sea)</h2>
+        <ul class="timeline">
+          <li class="timeline-item">
+            <span class="time-badge">07:00 - 08:00</span>
+            <p><b>飯店享用早餐</b>。</p>
+          </li>
+          <li class="timeline-item">
+            <span class="time-badge">08:30 - 09:00</span>
+            <p><b>交通接駁</b>：搭乘單軌電車至迪士尼海洋站。</p>
+          </li>
+          <li class="timeline-item">
+            <span class="time-badge">09:00 - 18:00</span>
+            <p><b>迪士尼海洋體驗</b>：美人魚礁湖室內區（不怕曬/雨）、海底兩萬哩。</p>
+          </li>
+          <li class="timeline-item">
+            <span class="time-badge">18:00</span>
+            <p><b>返回飯店與打包整理</b>：晚上休息整備，準備隔天換飯店。</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Day 4 -->
+    <div id="tab-day4" class="tab-content">
+      <div class="card">
+        <h2>Day 4：5月12日（二）包車移動 & 新宿親子遊</h2>
+        <ul class="timeline">
+          <li class="timeline-item">
+            <span class="time-badge">08:00 - 09:00</span>
+            <p><b>早餐與辦理退房</b>。</p>
+          </li>
+          <li class="timeline-item">
+            <span class="time-badge">09:30 - 10:30</span>
+            <p><b>包車移動</b>：直接包車從喜來登移動至新宿京王廣場飯店（免去大行李與推車轉乘地下鐵之苦）。</p>
+          </li>
+          <li class="timeline-item">
+            <span class="time-badge">10:30 - 11:30</span>
+            <p><b>飯店寄放行李與辦理登記</b>。</p>
+          </li>
+          <li class="timeline-item">
+            <span class="time-badge">13:30 - 17:00</span>
+            <p><b>下午周邊親子景點（二選一）</b>：</p>
+            <div class="highlight-box">
+              <p><b>選項 A（走路 5 分鐘）：新宿中央公園</b><br>專為幼童設計的滑梯沙坑軟墊遊戲區，旁邊有 SHUKNOVA 咖啡廳供大人休息。</p>
+            </div>
+            <div class="highlight-box">
+              <p><b>選項 B（電車 2 站）：東京消防博物館 (免費)</b><br>丸之內線四谷三丁目站直通，可坐上真實消防直升機與消防車駕駛座拍照。</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Day 5 -->
+    <div id="tab-day5" class="tab-content">
+      <div class="card">
+        <h2>Day 5：5月13日（三）KKday 富士山野生動物園一日遊</h2>
+        <ul class="timeline">
+          <li class="timeline-item">
+            <span class="time-badge">06:00 - 07:00</span>
+            <p><b>享用早餐</b>與準備出門物品。</p>
+          </li>
+          <li class="timeline-item">
+            <span class="time-badge">07:30 - 08:00</span>
+            <p><b>步行前往集合點</b>：從京王飯店地下連通道步行至新宿西口巴士集合點。</p>
+          </li>
+          <li class="timeline-item">
+            <span class="time-badge">08:00 - 17:30</span>
+            <p><b>富士山野生動物園 (Fuji Safari Park) 一日遊</b>：搭乘叢林巴士餵食猛獸，體驗可愛動物區互動。</p>
+          </li>
+          <li class="timeline-item">
+            <span class="time-badge">18:00</span>
+            <p><b>返抵新宿</b>：新宿周邊享用晚餐與最後採買。</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Day 6 -->
+    <div id="tab-day6" class="tab-content">
+      <div class="card">
+        <h2>Day 6：5月14日（四）愉快返台</h2>
+        <ul class="timeline">
+          <li class="timeline-item">
+            <span class="time-badge">08:00 - 09:30</span>
+            <p><b>早餐與辦理退房</b>。</p>
+          </li>
+          <li class="timeline-item">
+            <span class="time-badge">09:40 / 10:10</span>
+            <p><b>飯店門口搭乘利木津巴士</b>：京王廣場飯店 1F 專屬站牌直達機場（預計 11:20 抵達成田二航廈）。</p>
+          </li>
+          <li class="timeline-item">
+            <span class="time-badge">12:00 - 14:30</span>
+            <p><b>成田機場辦理登機與免稅店購物</b>。</p>
+          </li>
+          <li class="timeline-item">
+            <span class="time-badge">14:30 - 17:15</span>
+            <p><b>華航 CI105 班機</b>：返抵桃園機場，結束愉快旅程！</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 準備清單 -->
+    <div id="tab-checklist" class="tab-content">
+      <div class="card">
+        <h2>🎒 出國準備與檢查清單</h2>
+        <ul class="checklist">
+          <li class="checklist-item"><input type="checkbox" id="c1"><label for="c1">護照（確認效期 6 個月以上）</label></li>
+          <li class="checklist-item"><input type="checkbox" id="c2"><label for="c2">機票與飯店預約單據</label></li>
+          <li class="checklist-item"><input type="checkbox" id="c3"><label for="c3">Visit Japan Web (VJW) 入境填寫</label></li>
+          <li class="checklist-item"><input type="checkbox" id="c4"><label for="c4">日本上網 SIM 卡 / eSIM / 漫遊設定</label></li>
+          <li class="checklist-item"><input type="checkbox" id="c5"><label for="c5">日幣現鈔與海外回饋信用卡</label></li>
+          <li class="checklist-item"><input type="checkbox" id="c6"><label for="c6">兒童推車與雨罩</label></li>
+          <li class="checklist-item"><input type="checkbox" id="c7"><label for="c7">迪士尼門票 QRCode 儲存</label></li>
+          <li class="checklist-item"><input type="checkbox" id="c8"><label for="c8">預訂利木津巴士與包車服務</label></li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // 切換頁籤功能
+    function switchTab(tabId) {
+      const contents = document.querySelectorAll('.tab-content');
+      const buttons = document.querySelectorAll('.tab-btn');
+
+      contents.forEach(content => content.classList.remove('active'));
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      const targetContent = document.getElementById(`tab-${tabId}`);
+      if (targetContent) {
+        targetContent.classList.add('active');
+        localStorage.setItem('tokyo_active_tab', tabId);
+      }
+
+      // 幫對應按鈕加上 active 類別
+      buttons.forEach(btn => {
+        if (btn.getAttribute('onclick').includes(tabId)) {
+          btn.classList.add('active');
+        }
+      });
+
+      window.scrollTo(0, 0);
+    }
+
+    // 初始化與記憶最後點擊的分頁
+    function initTabs() {
+      const savedTab = localStorage.getItem('tokyo_active_tab') || 'overview';
+      switchTab(savedTab);
+
+      // 恢復檢查清單狀態
+      const checkboxes = document.querySelectorAll('.checklist input[type="checkbox"]');
+      checkboxes.forEach(box => {
+        const savedState = localStorage.getItem(`tokyo_chk_${box.id}`);
+        if (savedState === 'true') {
+          box.checked = true;
+        }
+        box.addEventListener('change', function() {
+          localStorage.setItem(`tokyo_chk_${box.id}`, this.checked);
+        });
+      });
+    }
+
+    initTabs();
+  </script>
+</body>
+</html>
